@@ -1,0 +1,22 @@
+LABELS = [
+    "cat",
+    "dog",
+    "car",
+    "bicycle",
+    "bird",
+    "horse",
+    "person",
+    "flower",
+    "tree",
+    "apple",
+    "banana",
+    "chair",
+    "table",
+    "cup",
+    "phone",
+    "laptop",
+    "bus",
+    "train",
+    "motorcycle",
+    "airplane"
+]
