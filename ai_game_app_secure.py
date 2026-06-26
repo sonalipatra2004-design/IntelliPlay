@@ -1,12 +1,11 @@
 import streamlit as st
-import requests
-import json
-import base64
+import tensorflow as tf
+import numpy as np
 import random
 from PIL import Image
 import os
 
-API_KEY = st.secrets.get('ANTHROPIC_API_KEY', os.getenv('ANTHROPIC_API_KEY'))
+
 
 # ─── Page Config ───────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -289,7 +288,7 @@ div[data-testid="stButton"] > button:active {
 
 /* ── File uploader ── */
 .stFileUploader > div {
-    background: rgba(10,28,50,0.5) !important;
+    backkground: rgba(10,28,50,0.5) !important;
     border: 2px dashed rgba(13,180,185,0.25) !important;
     border-radius: 16px !important;
 }
@@ -324,55 +323,7 @@ hr {
 
 
 # ─── Claude API ────────────────────────────────────────────────────────────────
-def call_claude(prompt, system="You are a fun, engaging game host. Be concise."):
-    if not API_KEY:
-        return "Error: Missing ANTHROPIC_API_KEY"
-    try:
-        r = requests.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "Content-Type": "application/json",
-                "x-api-key": API_KEY,
-                "anthropic-version": "2023-06-01"
-            },
-            json={
-                "model": "claude-sonnet-4-6",
-                "max_tokens": 1000,
-                "system": system,
-                "messages": [{"role": "user", "content": prompt}]
-            }, timeout=30
-        )
-        return r.json()["content"][0]["text"]
-    except Exception as e:
-        return f"Error: {e}"
-
-def call_claude_vision(prompt, b64, mime="image/jpeg"):
-    if not API_KEY:
-        return "Error: Missing ANTHROPIC_API_KEY"
-    try:
-        r = requests.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "Content-Type": "application/json",
-                "x-api-key": API_KEY,
-                "anthropic-version": "2023-06-01"
-            },
-            json={
-                "model": "claude-sonnet-4-6",
-                "max_tokens": 1000,
-                "messages": [{"role": "user", "content": [
-                    {"type": "image", "source": {"type": "base64", "media_type": mime, "data": b64}},
-                    {"type": "text", "text": prompt}
-                ]}]
-            }, timeout=30
-        )
-        return r.json()["content"][0]["text"]
-    except Exception as e:
-        return f"Error: {e}"
-
-def parse_json(text):
-    clean = text.strip().replace("```json","").replace("```","").strip()
-    return json.loads(clean)
+d
 
 
 # ─── Session State ─────────────────────────────────────────────────────────────
