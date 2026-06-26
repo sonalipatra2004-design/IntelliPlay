@@ -1,3 +1,8 @@
+import numpy as np
+import tensorflow as tf
+
+from riddles import get_riddle
+from imagenet_labels import LABELS
 import streamlit as st
 import tensorflow as tf
 import numpy as np
@@ -323,7 +328,7 @@ hr {
 
 
 # ─── Claude API ────────────────────────────────────────────────────────────────
-d
+
 
 
 # ─── Session State ─────────────────────────────────────────────────────────────
@@ -339,6 +344,18 @@ defaults = {
 for k, v in defaults.items():
     if k not in st.session_state:
         st.session_state[k] = v
+
+def preprocess_image(image):
+    image = image.resize((224,224))
+    img = np.array(image)
+
+    img = img.astype(np.float32)
+
+    img = np.expand_dims(img,axis=0)
+
+    img = img / 255.0
+
+    return img
 
 
 # ─── Header ───────────────────────────────────────────────────────────────────
